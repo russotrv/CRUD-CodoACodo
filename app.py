@@ -96,6 +96,11 @@ class Catalogo:
         productos = self.cursor.fetchall()
         return productos
 
+    def listar_productosCat(self, categoria, ):
+        self.cursor.execute("SELECT * FROM productos WHERE categoria = %s", (categoria,))
+        productos = self.cursor.fetchall()
+        return productos
+
     #----------------------------------------------------------------
     def eliminar_producto(self, codigo):
         try:
@@ -103,13 +108,13 @@ class Catalogo:
             self.cursor.execute("DELETE FROM productos WHERE codigo = %s", (codigo,))
             self.conn.commit()
 
-            eliminacion_exitosa = self.cursor.rowcount > 0
+            #eliminacion_exitosa = self.cursor.rowcount > 0
             # Reorganizamos los valores AUTO_INCREMENT después de la eliminación
-            if eliminacion_exitosa:
-                self.cursor.execute("ALTER TABLE productos AUTO_INCREMENT = 1;")
-                self.conn.commit()
+            #if eliminacion_exitosa:
+            #    self.cursor.execute("ALTER TABLE productos AUTO_INCREMENT = 1;")
+            #    self.conn.commit()
 
-            return eliminacion_exitosa
+            #return eliminacion_exitosa
         except Exception as e:
             print("Error al eliminar el producto:", e)
             # Manejar otros errores según sea necesario
@@ -135,7 +140,10 @@ class Catalogo:
 # Cuerpo del programa
 #--------------------------------------------------------------------
 
-
+@app.route("/productos/<string:categoria>", methods=["GET"])
+def consultar_productos(categoria):
+    productos = catalogo.listar_productosCat(categoria)
+    return jsonify(productos)
 
 @app.route("/productos", methods=["GET"])
 def listar_productos():

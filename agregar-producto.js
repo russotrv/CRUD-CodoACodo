@@ -16,29 +16,33 @@ document.addEventListener('DOMContentLoaded', function () {
         let cantidadValor = cantidad.value;
         let precioValor = precio.value;
 
-        var formData = new FormData();
-        formData.append('nombre', nombreValor);
-        formData.append('descripcion', descripcionValor);
-        formData.append('categoria', categoriaValor);
-        formData.append('cantidad', cantidadValor);
-        formData.append('precio', precioValor);
-
-        fetch(URL + 'productos', {
-            method: 'POST',
-            body: formData // Aquí enviamos formData en lugar de JSON
-        })
-        .then(function (response) {
-            if (response.ok) { return response.json(); }
-        })
-        .then(function (data) {
-            alert('Producto agregado correctamente.');
-            // Limpiar el formulario para el proximo producto
-            limpiarCampos()
-        })
-        .catch(function (error) {
-            // Mostramos el error, y no limpiamos el form.
-            alert('Error al agregar el producto.' + error);
-        });
+        if(nombreValor == '' || descripcionValor == '' || categoriaValor == ''){
+            alert("Campos imcompletos!")
+        }else{
+            var formData = new FormData();
+            formData.append('nombre', nombreValor);
+            formData.append('descripcion', descripcionValor);
+            formData.append('categoria', categoriaValor);
+            formData.append('cantidad', cantidadValor);
+            formData.append('precio', precioValor);
+            
+            fetch(URL + 'productos', {
+                method: 'POST',
+                body: formData // Aquí enviamos formData en lugar de JSON
+            })
+            .then(function (response) {
+                if (response.ok) { return response.json(); }
+            })
+            .then(function (data) {
+                alert('Producto agregado correctamente.');
+                // Limpiar el formulario para el proximo producto
+                limpiarCampos()
+            })
+            .catch(function (error) {
+                // Mostramos el error, y no limpiamos el form.
+                alert('Error al agregar el producto.' + error);
+            });
+        }
     }
 
     function limpiarCampos(){

@@ -51,6 +51,7 @@
 
                 <!-- Nuevo botón para obtener información del producto ENLAZAR CON LA API -->
                 <button type="button" onclick="obtenerDatosProducto()" class="boton">Obtener Datos del Producto</button>
+                <button type="button" onclick="document.getElementById('codProductoEliminar').value = '';" class="boton">Cancelar</button>
 
                 <!-- Nuevo área para mostrar los datos del producto -->
                 <div id="datosProductoArea">
@@ -72,6 +73,7 @@
                 </div>
                 <div class="contenedor-boton-eliminar">
                     <button type="button" onclick="eliminar_producto()" class="boton">Eliminar Producto</button>
+                    <button type="button" onclick="window.location.href='cambiar-eliminar-producto.html'" class="boton">Cancelar</button>
                 </div>
             
             </div>                    
@@ -85,7 +87,7 @@
     </main>
 
     <script>
-        const URL = "http://127.0.0.1:5000/";
+        const URL = 'http://127.0.0.1:5000/';
         
         function eleccion() {
             var radioModificar = document.getElementById("radio-modificar");
@@ -109,7 +111,7 @@
             // ESTA VARIABLE LA TENGO QUE USAR PARA BUSCAR CON LA API SI EXISTE EL PRODUCTO
             
             fetch(URL + "productos/" + codigoDelProducto.value)
-                .then(function (response) {
+            .then(function (response) {
                     if (response.ok) {return response.json(); }
                 })
                 .then(function (data) {
@@ -145,7 +147,7 @@
             formData.append('categoria', categoriaNueva.value);
             formData.append('cantidad', cantidadNueva.value);
             formData.append('precio', precioNuevo.value);
-
+            console.log(formData);
             fetch(URL + 'productos/' + codigo.value, {
                 method: 'PUT',
                 body: formData,
@@ -183,7 +185,9 @@
             console.log("Codigo producto eliminar: " + codigo + " - tipo: " + typeof(codigo));
             console.log(URL+"productos/"+codigo);
             if (confirm('¿Estás seguro de que quieres eliminar este producto?')) {
-                fetch(URL + "productos/" + codigo, { method: 'DELETE' })
+                fetch(URL + "productos/" + codigo, { 
+                    method: 'DELETE'
+                })
                 .then(response => {
                     if (response.ok) {
                         alert('Producto eliminado correctamente.');

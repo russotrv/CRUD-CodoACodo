@@ -10,12 +10,13 @@ fetch(url + "productos")
         // Iteramos sobre los productos y agregamos filas a la tabla
         for (let producto of data) {
             let fila = document.createElement('tr');
-            fila.innerHTML = '<td>' + producto.codigo + '</td>' +
-                '<td>' + producto.nombre + '</td>' +
-                '<td>' + producto.descripcion + '</td>' +
-                '<td align="right">' + producto.cantidad + '</td>' +
-                '<td align="right">' + producto.precio + '</td>' 
-                // Mostrar miniatura de la imagen
+            fila.innerHTML = '<td align="center">' + producto.codigo + '</td>' +
+                '<td align="center">' + producto.nombre + '</td>' +
+                '<td align="center">' + producto.descripcion + '</td>' +
+                '<td align="center">' + producto.categoria + '</td>' +
+                '<td align="center">' + producto.cantidad + '</td>' +
+                '<td align="center">' + producto.precio + '</td>' 
+                
                 
             tablaProductos.appendChild(fila);
         }

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilosCrud.css">
+    <link rel="stylesheet" href="formularioRead.css">
+    <link rel="stylesheet" href="despliegueReadStyles.css">
+    <title>CRUD</title>
+</head>
+<body>
+    <h1 class="titulo-catalogo">Catálogo Completo</h1>
+    <div class="contenedor">
+        <table>
+            <thead>
+                <tr>
+                    <th align="center">Código</th>
+                    <th align="center">Nombre</th>
+                    <th align="center">Descripcion</th>                
+                    <th align="center">Categoria</th>
+                    <th align="center">Cantidad</th>
+                    <th align="center">Precio</th>
+                </tr>
+            </thead>
+            <tbody class="tabla-productos"></tbody>
+        </table>
+    </div>
+    <div id="inicio-button-container">
+        <div id="inicio-button-container">
+            <button onclick="window.location.href='/index.html'" class="crud-button">Volver al Menú</button>
+        </div>
+    </div>
+</body>
+<script src="listado.js"></script>
+</html>

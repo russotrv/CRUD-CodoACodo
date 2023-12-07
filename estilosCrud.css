@@ -1,0 +1,75 @@
+body {
+    background-color: #df9ad0;
+    font-family: 'Oswald', sans-serif;
+    color: #4d4d4d;
+    margin: 0;
+}
+
+#crud-container {
+    background-color: #ffc0cb;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px #ff9999;
+    margin: 50px auto;
+    padding: 20px;
+    width: 400px;
+    text-align: center;
+}
+
+#crud-title {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #800080;
+    font-family: 'Quicksand', sans-serif;
+}
+
+
+.crud-button {
+    background-color: #ffb6c1;
+    border: none;
+    border-radius: 5px;
+    color: #4d4d4d;
+    cursor: pointer;
+    display: block;
+    font-size: 18px;
+    margin-bottom: 10px;
+    padding: 15px;
+    text-align: center;
+    text-decoration: none;
+    width: 100%;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.crud-button:hover {
+    background-color: #ff94a1;
+    color: #fff;
+}
+
+.crud-button:active {
+    background-color: #ff667d;
+    color: #fff;
+}
+
+#crud-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.crud-button:not(:last-child) {
+    margin-bottom: 20px;
+}
+#inicio-button-container {
+    text-align: center;
+}
+
+#inicio-button-container .crud-button {
+    position: fixed, bottom;
+    bottom: 0px;
+}
+
+.contenedor{
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+}

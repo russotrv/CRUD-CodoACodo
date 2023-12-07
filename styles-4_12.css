@@ -1,0 +1,89 @@
+
+body{
+    background-color: rgb(214, 199, 227);
+    margin: 2em 1em 0 2em;
+    color: rgb(153, 6, 158);
+}
+h1{
+    font-size:xx-large;
+    color: rgb(153, 6, 158);
+}
+form label, form legend{
+    
+    display: block;
+    font-size: 20px;
+    margin: 0 0 10;
+}
+.input-padron{
+    background-color: rgb(238, 209, 232);
+    display: block;
+    margin: 0 0 20px;
+    padding: 10px 25px;
+    width: 50%;
+}
+.checkb{
+    margin: 2em 2em 2em 2em;
+    padding-bottom: 2em;
+}
+.enviar{
+    width: 40%;
+    margin: 2em;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    color: rgb(153, 6, 158);
+    background: rgb(236, 159, 227);
+    border: none;
+    border-radius: 8px;
+    transition: 1s all;
+    cursor: pointer;
+
+}
+.enviar:hover{
+    font:bold;
+    background: rgb(198, 28, 179);
+    transform: scale(1.2);
+}
+.tabla{
+    margin: 20 px;
+    padding: 2em;
+    border-color: rgb(11, 1, 21);
+}
+thead{
+    margin: 1em;
+    padding: 1em;
+}
+th{
+    text-align: center;
+    padding: 1em;
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(153, 6, 158);
+    border: solid 1px;
+}
+td{
+    text-align: center;
+    padding: 1em;
+    border: solid 1px;
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(153, 6, 158);
+}
+.boton{
+    margin: 2em;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    color: rgb(65, 4, 68);
+    background: rgb(236, 159, 227);
+    border: none;
+    border-radius: 8px;
+    transition: 1s all;
+    cursor: pointer;
+}
+.boton:hover{
+    background: rgb(255, 0, 119);
+    transform: scale(1.2);
+}

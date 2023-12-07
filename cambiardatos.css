@@ -1,0 +1,42 @@
+
+body{
+    background-color: rgb(185, 169, 199);
+    margin: 2em 1em 0 2em;
+}
+form label, form legend{
+    
+    display: block;
+    font-size: 20px;
+    margin: 0 0 10;
+}
+.input-padron{
+    background-color: rgb(238, 209, 232);
+    display: block;
+    margin: 0 0 20px;
+    padding: 10px 25px;
+    width: 50%;
+}
+.checkb{
+    margin: 2em 2em 2em 2em;
+    padding-bottom: 2em;
+}
+.enviar{
+    width: 40%;
+    margin: 2em;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    color: rgb(153, 6, 158);
+    background: rgb(236, 159, 227);
+    border: none;
+    border-radius: 8px;
+    transition: 1s all;
+    cursor: pointer;
+
+}
+.enviar:hover{
+    font:bold;
+    background: rgb(198, 28, 179);
+    transform: scale(1.2);
+}
