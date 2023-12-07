@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Read</title>
+    <link rel="stylesheet" href="estilosCrud.css">
+    <link rel="stylesheet" href="formularioRead.css">
+    <link rel="stylesheet" href="despliegueReadStyles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Buscar productos</h1>
+        <form id="consultaForm">
+            <label for="categoria">Categoría:</label>
+            <select id="categoria" name="categoria" required>
+                <option value="accesorios">Accesorios</option>
+                <option value="porcelana fria">Porcelana Fría</option>
+                <option value="tejido">Tejido</option>
+            </select>
+
+            <label for="cantidad">Cantidad máxima:</label>
+            <input type="number" id="cantidad" name="cantidad" required min="1" max="100">
+
+            <!--<label for="rango_precios">Rango de Precios (opcional):</label>
+            <input type="text" id="rango_precios" name="rango_precios">
+
+            <label for="nombre">Nombre (opcional):</label>
+            <input type="text" id="nombre" name="nombre">-->
+
+            <button type="button" id="boton-consulta" onclick="filtrarProductos()">Consultar</button>
+        </form>
+
+        <!--despligue read-->
+        <div class="container">
+            <h1>Lista de Productos</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th align="center">ID</th>
+                        <th align="center">Nombre</th>
+                        <th align="center">Descripción</th>
+                        <th align="center">Categoria</th>
+                        <th align="center">Cantidad</th>
+                        <th align="center">Precio</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaProductosBody">
+                    <!-- Aquí se mostrarán los datos de la base de datos -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div>
+        <button type="button" onclick="window.location.href='/listado-productos.html' " class="btn">Desplegar Catálogo</button>
+    </div>
+    <div id="inicio-button-container">
+        <div id="inicio-button-container">
+            <button onclick="window.location.href='/index.html'" class="crud-button">Volver al Menú</button>
+        </div>
+    </div>
+    <script>
+        const URL = "http://127.0.0.1:5000/";
+
+        function filtrarProductos() {
+            
+            var tablaProductosBody= document.getElementById("tablaProductosBody");
+            let categoria = document.getElementById("categoria").value;
+            let cantidad = document.getElementById("cantidad").value;
+            
+            fetch(URL + 'productos/' + categoria)
+                .then(function (response) {
+                    if (response.ok) {return response.json(); }
+                })
+                .then(function (data) {
+                    
+                    for(let producto of data){
+                        if(producto.cantidad <= cantidad){    
+                            let fila = document.createElement('tr');
+                            fila.innerHTML =  
+                                '<td align="center">' + producto.codigo + '</td>' +
+                                '<td align="center">' + producto.nombre + '</td>' +
+                                '<td align="center">' + producto.categoria + '</td>' +
+                                '<td align="center">' + producto.descripcion + '</td>' +
+                                '<td align="center">' + producto.cantidad + '</td>' +
+                                '<td align="center">' + producto.precio + '</td>'  ;
+                            tablaProductosBody.appendChild(fila);
+                        }
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    
+    </script> 
+</body>
+</html>
+

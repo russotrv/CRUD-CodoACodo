@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambiar Datos del Producto</title>
+    <link rel="stylesheet" href="estilosCrud.css">
+    <link rel="stylesheet" href="styles-4_12.css">
+</head>
+
+<body>
+
+    <main>
+        <h1>CAMBIAR DATOS DEL PRODUCTO</h1>
+        <form id="cambiarDatosForm">
+            <fieldset>
+                <legend>¿Qué desea hacer?</legend>
+                <label for="radio-modificar"> <input type="radio" name="cambiar" value="modificar" id="radio-modificar" onclick="eleccion()">Modificar producto</label>
+                <label for="radio-eliminar"><input type="radio" name="cambiar" value="eliminar" id="radio-eliminar" onclick="eleccion()">Eliminar Producto</label>
+            </fieldset>
+
+            <!-- Parte del formulario para modificar producto -->
+            <div id="modificarProductoForm" style="display: none;">
+                <label for="codProducto">código del Producto</label>
+                <input type="text" id="codProductoModificar" class="input-padron"> 
+                <!-- Agrega aquí los campos necesarios para modificar el producto -->
+                <label for="nuevoNombre">Nuevo Nombre del Producto</label>
+                <input type="text" id="nuevoNombre" class="input-padron">
+                <label for="nuevaDescripcion">Nueva Descripción del Producto</label>
+                <input type="text" id="nuevaDescripcion" class="input-padron">
+                <label for="nuevacategoria">Nueva Categoría del Producto</label>
+                <input type="text" id="nuevaCategoria" class="input-padron">
+                <label for="nuevaCantidad">Nueva Cantidad del Producto</label>
+                <input type="text" id="nuevaCantidad" class="input-padron">
+                <label for="nuevoPrecio">Nuevo Precio del Producto</label>
+                <input type="text" id="nuevoPrecio" class="input-padron">
+
+                <!-- Nuevo botón para modificar información del producto -->
+                <button type="button" onclick="modificar_producto()" class="boton">Modificar Datos del Producto</button>
+                <button type="button" onclick="limpiarFormulario()" class="boton">Cancelar</button>
+            </div>
+
+            <!-- Parte del formulario para eliminar producto -->
+            <div id="eliminarProductoForm" style="display: none;">
+
+                <!-- chequear la existencia del producto ENLAZAR CON LA API -->
+                <label for="codProducto">código del Producto</label>
+                <input type="text" id="codProductoEliminar" class="input-padron"> 
+
+                <!-- Nuevo botón para obtener información del producto ENLAZAR CON LA API -->
+                <button type="button" onclick="obtenerDatosProducto()" class="boton">Obtener Datos del Producto</button>
+                <button type="button" onclick="document.getElementById('codProductoEliminar').value = '';" class="boton">Cancelar</button>
+
+                <!-- Nuevo área para mostrar los datos del producto -->
+                <div id="datosProductoArea">
+                    <table class="tabla">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Nombre</th>
+                                <th>Descripcion</th>
+                                <th>Categoria</th>
+                                <th>Cantidad</th>
+                                <th>Precio</th>
+                            </tr>
+                        </thead>
+                        <tbody id="filaProdEliminar">
+                            <!---EN ESTA TABLA IRÍA EL RESULTADO DE LA BÚSQUEDA EN LA BD QUE DA LA FUNCIÓN  def consultar_producto(self, codigo): -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="contenedor-boton-eliminar">
+                    <button type="button" onclick="eliminar_producto()" class="boton">Eliminar Producto</button>
+                    <button type="button" onclick="window.location.href='cambiar-eliminar-producto.html'" class="boton">Cancelar</button>
+                </div>
+            
+            </div>                    
+            
+        </form>
+        <div id="inicio-button-container">
+            <div id="inicio-button-container">
+                <button onclick="window.location.href='/index.html'" class="crud-button">Volver al Menú</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const URL = 'http://127.0.0.1:5000/';
+        
+        function eleccion() {
+            var radioModificar = document.getElementById("radio-modificar");
+            var modificarProductoForm = document.getElementById("modificarProductoForm");
+            var radioEliminar = document.getElementById("radio-eliminar");
+            var eliminarProductoForm = document.getElementById("eliminarProductoForm");
+
+            // Si se selecciona "Modificar producto", muestra el formulario de modificación
+            if (radioModificar.checked) {
+                modificarProductoForm.style.display = "block";
+                eliminarProductoForm.style.display = "none";
+            } else if (radioEliminar.checked){
+                eliminarProductoForm.style.display = "block";
+                modificarProductoForm.style.display = "none";
+            }
+        }
+        //-- chequear la existencia del producto: -->
+        function obtenerDatosProducto() {
+            let codigoDelProducto = document.getElementById("codProductoEliminar");
+            let prodEliminar = document.getElementById("filaProdEliminar")
+            // ESTA VARIABLE LA TENGO QUE USAR PARA BUSCAR CON LA API SI EXISTE EL PRODUCTO
+            
+            fetch(URL + "productos/" + codigoDelProducto.value)
+            .then(function (response) {
+                    if (response.ok) {return response.json(); }
+                })
+                .then(function (data) {
+                    console.log(codigoDelProducto.value);
+                    let fila = document.createElement('tr');
+                    fila.innerHTML = '<td align="center">' + codigoDelProducto.value + '</td>' +
+                        '<td align="center">' + data.nombre + '</td>' +
+                        '<td align="center">' + data.descripcion + '</td>' +
+                        '<td align="center">' + data.categoria + '</td>' +
+                        '<td aling="center">' + data.cantidad + '</td>' +
+                        '<td align="center">' + data.precio + '</td>';
+                    prodEliminar.appendChild(fila);
+                })
+                .catch(function (error) {
+                // Código para manejar errores
+                    alert('Error al obtener el producto ' + codigoDelProducto.value);
+                });
+        }
+
+
+        function modificar_producto(){
+            let codigo = document.getElementById("codProductoModificar");
+            let nombreNuevo = document.getElementById("nuevoNombre");
+            let descripcionNueva = document.getElementById("nuevaDescripcion");
+            let categoriaNueva = document.getElementById("nuevaCategoria");
+            let cantidadNueva = document.getElementById("nuevaCantidad");
+            let precioNuevo  = document.getElementById("nuevoPrecio");
+            
+            
+            const formData = new FormData();
+            formData.append('nombre', nombreNuevo.value);
+            formData.append('descripcion', descripcionNueva.value);
+            formData.append('categoria', categoriaNueva.value);
+            formData.append('cantidad', cantidadNueva.value);
+            formData.append('precio', precioNuevo.value);
+            console.log(formData);
+            fetch(URL + 'productos/' + codigo.value, {
+                method: 'PUT',
+                body: formData,
+            })
+                .then(response => response.json())
+                .then(data => {
+                    alert('Producto actualizado correctamente');
+                    this.limpiarFormulario();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error al actualizar el producto');
+                });        
+        }
+
+        function limpiarFormulario() {
+            let codigo = document.getElementById("codProductoModificar");
+            let nombreNuevo = document.getElementById("nuevoNombre");
+            let descripcionNueva = document.getElementById("nuevaDescripcion");
+            let categoriaNueva = document.getElementById("nuevaCategoria");
+            let cantidadNueva = document.getElementById("nuevaCantidad");
+            let precioNuevo  = document.getElementById("nuevoPrecio");
+            
+            codigo.value = '';
+            descripcionNueva.value = '';
+            nombreNuevo.value = '';
+            categoriaNueva.value = '';
+            precioNuevo.value = '';
+            cantidadNueva.value = '';
+        }
+
+        function eliminar_producto(){
+            let codigoDelProducto = document.getElementById("codProductoEliminar");
+            let codigo = parseInt(codigoDelProducto.value,10);
+            console.log("Codigo producto eliminar: " + codigo + " - tipo: " + typeof(codigo));
+            console.log(URL+"productos/"+codigo);
+            if (confirm('¿Estás seguro de que quieres eliminar este producto?')) {
+                fetch(URL + "productos/" + codigo, { 
+                    method: 'DELETE'
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Producto eliminado correctamente.');
+                        window.location.href = 'cambiar-eliminar-producto.html';
+                    } else {
+                        console.error("Error en la respuesta:", response.status, response.statusText);
+                        return response.text();
+                    }
+                })
+                .then(errorText => {
+                    if (errorText) {
+                        console.error("Cuerpo de error:", errorText);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error en la solicitud:", error, " - ", error.message);
+                    alert("Error al eliminar el producto: " + error.message);
+                });               
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>
