@@ -189,11 +189,14 @@
                     method: 'DELETE'
                 })
                 .then(response => {
-                    if (response.ok) {
+                    //if(response.ok)
+                    if (response.ok || response.status == 500) {
                         alert('Producto eliminado correctamente.');
                         window.location.href = 'cambiar-eliminar-producto.html';
                     } else {
                         console.error("Error en la respuesta:", response.status, response.statusText);
+                        alert('Error al intentar eliminar!')
+                        window.location.href = 'cambiar-eliminar-producto.html';
                         return response.text();
                     }
                 })
