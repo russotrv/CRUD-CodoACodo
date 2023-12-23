@@ -1,12 +1,13 @@
 body {
-    background-color: #df9ad0;
+    /*background-color: #df9ad0;*/
+    background-color: rgb(214, 199, 227);
     font-family: 'Oswald', sans-serif;
     color: #4d4d4d;
     margin: 0;
 }
 
 #crud-container {
-    background-color: #ffc0cb;
+    background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0px 0px 10px #ff9999;
     margin: 50px auto;
@@ -28,7 +29,7 @@ body {
     background-color: #ffb6c1;
     border: none;
     border-radius: 5px;
-    color: #4d4d4d;
+    color: #000000;
     cursor: pointer;
     display: block;
     font-size: 18px;
