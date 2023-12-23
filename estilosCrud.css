@@ -74,3 +74,9 @@ body {
     display: flex;
     align-items: center;
 }
+
+.contenedor-boton-eliminar, .contenedor-boton-obtener{
+    display: flex;
+    justify-items: center;
+    justify-content: space-between;
+}
